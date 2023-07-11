@@ -1,36 +1,51 @@
-﻿class Program
+using System;
+
+class Program
 {
     static void Main(string[] args)
     {
+        Console.WriteLine("Введите элементы массива (каждый элемент на новой строке):");
+        int n = int.Parse(Console.ReadLine());
+        string[] array = new string[n];
 
-        System.Console.Write("Введите количество элементов массива:");
+        for (int i = 0; i < n; i++)
+        {
+            array[i] = Console.ReadLine();
+        }
 
-        int elementsCount = int.Parse(Console.ReadLine());
+        string[] newArray = FilterArray(array);
 
-        int[] array = new int[elementsCount];
-        
+        Console.WriteLine("Новый массив со строками длиной не более 3 символов:");
+        for (int i = 0; i < newArray.Length; i++)
+        {
+            Console.WriteLine(newArray[i]);
+        }
+    }
+
+    static string[] FilterArray(string[] array)
+    {
+        int count = 0;
+
         for (int i = 0; i < array.Length; i++)
         {
-            System.Console.WriteLine($"Введите элемент массива под индексом {i} ");
-            array[i] = int.Parse(Console.ReadLine());
+            if (array[i].Length <= 3)
+            {
+                count++;
+            }
         }
 
-        System.Console.WriteLine("Вывод массива");
+        string[] newArray = new string[count];
+        int index = 0;
 
         for (int i = 0; i < array.Length; i++)
         {
-            System.Console.WriteLine(array[i]);
+            if (array[i].Length <= 3)
+            {
+                newArray[index] = array[i];
+                index++;
+            }
         }
 
-        Random random = new Random();
-
-        for (int i = 0; i < 3; i++)
-        {
-            int randomIndex = random.Next(0, array.Length);
-            System.Console.WriteLine(array[randomIndex]);
-        }
-
-        Console.ReadLine();
-
+        return newArray;
     }
 }
